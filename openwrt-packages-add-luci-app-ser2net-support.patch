@@ -1,0 +1,83 @@
+Index: net/ser2net/files/etc/init.d/ser2net
+===================================================================
+--- net/ser2net/files/etc/init.d/ser2net	(revision 0)
++++ net/ser2net/files/etc/init.d/ser2net	(working copy)
+@@ -0,0 +1,51 @@
++#!/bin/sh /etc/rc.common
++START=75
++STOP=10
++CONFIGFILE="/tmp/ser2net.conf"
++
++start() {
++	pidof ser2net | awk '{print $2}' > /tmp/ser2net
++	PID=$(cat /tmp/ser2net)
++	rm /tmp/ser2net
++    if [ ! $PID ]; then
++		update_configfile
++        ser2net -c "$CONFIGFILE"
++
++    else
++        echo "Ser2Net: is already running"
++    fi
++}
++
++stop() {
++	pidof ser2net | sed -e "s/$$//g" > /tmp/ser2net_pid
++	PID=`cat /tmp/ser2net_pid`
++	rm -f /tmp/se2net_pid
++	kill -9 $PID 	
++}
++
++
++update_configfile() {
++	echo "Ser2Net: Generating "$CONFIGFILE" based on /etc/config/ser2net (in cbi format)."
++	echo "#This file is generated based on /etc/config/ser2net." > "$CONFIGFILE"
++	i=0
++	while [ true ]
++	do
++	        tcpport=`uci get ser2net.@proxy["$i"].tcpport 2> /dev/null`
++	        if [ -z $tcpport ]; then
++	                break
++	        fi
++	        state=`uci get ser2net.@proxy["$i"].state 2> /dev/null`
++	        timeout=`uci get ser2net.@proxy["$i"].timeout 2> /dev/null`
++	        device=`uci get ser2net.@proxy["$i"].device 2> /dev/null`
++	        options=`uci get ser2net.@proxy["$i"].options 2> /dev/null`
++
++	        if [ -z "$options" ]; then
++	                echo "$tcpport":"$state":"$timeout":"$device" >> "$CONFIGFILE"
++	        else
++	                echo "$tcpport":"$state":"$timeout":"$device":"$options" >> "$CONFIGFILE"
++	        fi
++
++	        let i++
++	done
++	echo "Ser2Net: File "$CONFIGFILE" is now updated, restart ser2net service for changes to take affect."
++}
+Index: net/ser2net/files/etc/config/ser2net
+===================================================================
+--- net/ser2net/files/etc/config/ser2net	(revision 0)
++++ net/ser2net/files/etc/config/ser2net	(working copy)
+@@ -0,0 +1,7 @@
++config 'proxy'
++        option 'tcpport' '8000'
++        option 'state' 'raw'
++        option 'timeout' '30'
++        option 'device' '/dev/ttyUSB0'
++        option 'options' '9600 1STOPBIT 8DATABITS'
++
+Index: net/ser2net/Makefile
+===================================================================
+--- net/ser2net/Makefile	(revision 38082)
++++ net/ser2net/Makefile	(working copy)
+@@ -45,6 +45,10 @@
+ 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/ser2net $(1)/usr/sbin/
+ 	$(INSTALL_DIR) $(1)/etc
+ 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/ser2net.conf $(1)/etc/
++	$(INSTALL_DIR) $(1)/etc/config
++	$(INSTALL_CONF) ./files/etc/config/ser2net $(1)/etc/config/ser2net
++	$(INSTALL_DIR) $(1)/etc/init.d
++	$(INSTALL_BIN) ./files/etc/init.d/ser2net $(1)/etc/init.d/ser2net
+ endef
+ 
+ $(eval $(call BuildPackage,ser2net))
