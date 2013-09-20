@@ -7,7 +7,7 @@ These patches which come from OpenWrt forum are used to add ser2net service for 
 **openwrt-luci-add-luci-app-ser2net-support.patch** --> This patch adds service interface in LuCI.
 
 ## How To
-1. For people who uses OpenWrt first need check the OpenWrt source first.
+1. For people who uses OpenWrt first need checkout the OpenWrt source first.
 
 		mkdir openwrt
 		cd openwrt
@@ -45,3 +45,6 @@ These patches which come from OpenWrt forum are used to add ser2net service for 
 ## Resources
 The patch is based on this post from OpenWrt forum.  
 <https://forum.openwrt.org/viewtopic.php?id=34662>  
+
+## Thanks
+Thanks **carlberg** who make the source file and **g1itch** who shows the package create procedure. Both of them are from OpenWrt forum.
