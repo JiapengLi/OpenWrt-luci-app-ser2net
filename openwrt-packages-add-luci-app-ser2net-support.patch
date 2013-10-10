@@ -1,13 +1,7 @@
-commit d91504cfbe3a3543f0cad8edd4308ecf635418c0
-Author: JiapengLi <gapleehit@gmail.com>
-Date:   Wed Oct 9 11:58:43 2013 +0800
-
-    Update ser2net to 2.9.1
-
-diff --git a/net/ser2net/Makefile b/net/ser2net/Makefile
-index 2782972..79f0633 100644
---- a/net/ser2net/Makefile
-+++ b/net/ser2net/Makefile
+Index: net/ser2net/Makefile
+===================================================================
+--- net/ser2net/Makefile	(revision 38082)
++++ net/ser2net/Makefile	(working copy)
 @@ -8,12 +8,12 @@
  include $(TOPDIR)/rules.mk
  
@@ -23,7 +17,7 @@ index 2782972..79f0633 100644
  
  PKG_FIXUP:=autoreconf
  PKG_INSTALL:=1
-@@ -45,6 +45,10 @@ define Package/ser2net/install
+@@ -45,6 +45,10 @@
  	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/ser2net $(1)/usr/sbin/
  	$(INSTALL_DIR) $(1)/etc
  	$(INSTALL_CONF) $(PKG_BUILD_DIR)/ser2net.conf $(1)/etc/
@@ -34,24 +28,10 @@ index 2782972..79f0633 100644
  endef
  
  $(eval $(call BuildPackage,ser2net))
-diff --git a/net/ser2net/files/etc/config/ser2net b/net/ser2net/files/etc/config/ser2net
-new file mode 100644
-index 0000000..60a092a
---- /dev/null
-+++ b/net/ser2net/files/etc/config/ser2net
-@@ -0,0 +1,7 @@
-+config 'proxy'
-+        option 'tcpport' '8000'
-+        option 'state' 'raw'
-+        option 'timeout' '30'
-+        option 'device' '/dev/ttyUSB0'
-+        option 'options' '9600 1STOPBIT 8DATABITS'
-+
-diff --git a/net/ser2net/files/etc/init.d/ser2net b/net/ser2net/files/etc/init.d/ser2net
-new file mode 100644
-index 0000000..c20813b
---- /dev/null
-+++ b/net/ser2net/files/etc/init.d/ser2net
+Index: net/ser2net/files/etc/init.d/ser2net
+===================================================================
+--- net/ser2net/files/etc/init.d/ser2net	(revision 0)
++++ net/ser2net/files/etc/init.d/ser2net	(working copy)
 @@ -0,0 +1,51 @@
 +#!/bin/sh /etc/rc.common
 +START=75
@@ -104,3 +84,15 @@ index 0000000..c20813b
 +	done
 +	echo "Ser2Net: File "$CONFIGFILE" is now updated, restart ser2net service for changes to take affect."
 +}
+Index: net/ser2net/files/etc/config/ser2net
+===================================================================
+--- net/ser2net/files/etc/config/ser2net	(revision 0)
++++ net/ser2net/files/etc/config/ser2net	(working copy)
+@@ -0,0 +1,7 @@
++config 'proxy'
++        option 'tcpport' '8000'
++        option 'state' 'raw'
++        option 'timeout' '30'
++        option 'device' '/dev/ttyUSB0'
++        option 'options' '9600 1STOPBIT 8DATABITS'
++
