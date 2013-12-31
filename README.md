@@ -1,18 +1,25 @@
-# LUCI-APP-SER2NET
+# luci-app-ser2net
 
-These patches which come from OpenWrt forum are used to add ser2net service for OpenWrt LuCI. I do some collection work and make the source file to patch format in order to make it easier to use.
+These patches come from OpenWrt forum, are used to add ser2net service to OpenWrt LuCI. I did some collection work and make the source files to the patch format in order to make it easier to use.
 
 ## Introduction
 **openwrt-packages-add-luci-app-ser2net-support.patch** --> This patch is the init scripts of ser2net. 
 **openwrt-luci-add-luci-app-ser2net-support.patch** --> This patch adds service interface in LuCI.
 
 ## How To
-1. For people who uses OpenWrt first need checkout the OpenWrt source first.
+1. For people who uses OpenWrt first need checkout/clone the OpenWrt source first.
 
 		mkdir openwrt
 		cd openwrt
 		svn co svn://svn.openwrt.org/openwrt/trunk trunk
 		cd trunk
+
+or
+
+		git clone git://git.openwrt.org/openwrt.git
+		cd openwrt
+
+	*I've been using both svn and git for a while, like git more from personal.*
 
 2. Use feeds script update the packages.
 
