@@ -1,21 +1,27 @@
-Index: contrib/package/luci/Makefile
-===================================================================
---- contrib/package/luci/Makefile	(revision 9907)
-+++ contrib/package/luci/Makefile	(working copy)
-@@ -405,6 +405,9 @@
- $(eval $(call application,p2pblock,LuCI Support for the Freifunk P2P-Block addon,\
- 	luci-app-firewall +PACKAGE_luci-app-p2pblock:freifunk-p2pblock))
- 
-+$(eval $(call application,ser2net,ser2net - Serial to network module,\
-+	+PACKAGE_luci-app-ser2net:ser2net))
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   applications/luci-ser2net/Makefile
+#	new file:   applications/luci-ser2net/luasrc/controller/ser2net.lua
+#	new file:   applications/luci-ser2net/luasrc/model/cbi/ser2net.lua
+#	modified:   contrib/package/luci/Makefile
+#
+diff --git a/applications/luci-ser2net/Makefile b/applications/luci-ser2net/Makefile
+new file mode 100644
+index 0000000..6e53f89
+--- /dev/null
++++ b/applications/luci-ser2net/Makefile
+@@ -0,0 +1,4 @@
++PO = ser2net
 +
- $(eval $(call application,multiwan,LuCI Support for the OpenWrt MultiWAN agent,\
- 	luci-app-firewall +PACKAGE_luci-app-multiwan:multiwan))
- 
-Index: applications/luci-ser2net/luasrc/controller/ser2net.lua
-===================================================================
---- applications/luci-ser2net/luasrc/controller/ser2net.lua	(revision 0)
-+++ applications/luci-ser2net/luasrc/controller/ser2net.lua	(working copy)
++include ../../build/config.mk
++include ../../build/module.mk
+diff --git a/applications/luci-ser2net/luasrc/controller/ser2net.lua b/applications/luci-ser2net/luasrc/controller/ser2net.lua
+new file mode 100644
+index 0000000..7f245db
+--- /dev/null
++++ b/applications/luci-ser2net/luasrc/controller/ser2net.lua
 @@ -0,0 +1,7 @@
 +module("luci.controller.ser2net", package.seeall)
 +
@@ -24,10 +30,11 @@ Index: applications/luci-ser2net/luasrc/controller/ser2net.lua
 +        entry({"admin", "services", "ser2net", "config"}, cbi("ser2net"))
 +end
 +
-Index: applications/luci-ser2net/luasrc/model/cbi/ser2net.lua
-===================================================================
---- applications/luci-ser2net/luasrc/model/cbi/ser2net.lua	(revision 0)
-+++ applications/luci-ser2net/luasrc/model/cbi/ser2net.lua	(working copy)
+diff --git a/applications/luci-ser2net/luasrc/model/cbi/ser2net.lua b/applications/luci-ser2net/luasrc/model/cbi/ser2net.lua
+new file mode 100644
+index 0000000..c10928e
+--- /dev/null
++++ b/applications/luci-ser2net/luasrc/model/cbi/ser2net.lua
 @@ -0,0 +1,58 @@
 +m = Map("ser2net", translate("Ser2net"),
 +        translate("The ser2net allows telnet and tcp sessions to be established with a unit's serial ports.<br/>"))
@@ -87,12 +94,17 @@ Index: applications/luci-ser2net/luasrc/model/cbi/ser2net.lua
 +options.default = ""
 +
 +return m
-Index: applications/luci-ser2net/Makefile
-===================================================================
---- applications/luci-ser2net/Makefile	(revision 0)
-+++ applications/luci-ser2net/Makefile	(working copy)
-@@ -0,0 +1,4 @@
-+PO = ser2net
+diff --git a/contrib/package/luci/Makefile b/contrib/package/luci/Makefile
+index 7706645..058980d 100644
+--- a/contrib/package/luci/Makefile
++++ b/contrib/package/luci/Makefile
+@@ -405,6 +405,9 @@ $(eval $(call application,openvpn,LuCI Support for OpenVPN,\
+ $(eval $(call application,p2pblock,LuCI Support for the Freifunk P2P-Block addon,\
+ 	luci-app-firewall +PACKAGE_luci-app-p2pblock:freifunk-p2pblock))
+ 
++$(eval $(call application,ser2net,ser2net - Serial to network module,\
++	+PACKAGE_luci-app-ser2net:ser2net))
 +
-+include ../../build/config.mk
-+include ../../build/module.mk
+ $(eval $(call application,multiwan,LuCI Support for the OpenWrt MultiWAN agent,\
+ 	luci-app-firewall +PACKAGE_luci-app-multiwan:multiwan))
+ 

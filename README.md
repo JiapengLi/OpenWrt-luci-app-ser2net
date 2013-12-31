@@ -24,10 +24,10 @@ These patches which come from OpenWrt forum are used to add ser2net service for 
 		cd ..    		#go back to openwrt directory
 		git clone https://github.com/JiapengLi/luci-app-ser2net.git
 		cd trunk/feeds/packages/
-		patch -p0 < ../../../luci-app-ser2net/openwrt-packages-add-luci-app-ser2net-support.patch
+		patch -p1 < ../../../luci-app-ser2net/openwrt-packages-add-luci-app-ser2net-support.patch
 		cd ../../../    #go back to openwrt directory
 		cd trunk/feeds/luci/
-		patch -p0 < ../../../luci-app-ser2net/openwrt-luci-add-luci-app-ser2net-support.patch
+		patch -p1 < ../../../luci-app-ser2net/openwrt-luci-add-luci-app-ser2net-support.patch
 
 4. To use luci-app-ser2net, you need choose it in `LuCI -> 3. Application -> luci-app-ser2net`
 
